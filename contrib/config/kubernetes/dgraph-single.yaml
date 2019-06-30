@@ -61,7 +61,7 @@ spec:
           name: zero-http
         volumeMounts:
         - name: datadir
-          mountPath: /dgraph
+          mountPath: /data
         command:
           - bash
           - "-c"
@@ -78,7 +78,7 @@ spec:
           name: alpha-grpc
         volumeMounts:
         - name: datadir
-          mountPath: /dgraph
+          mountPath: /data
         env:
           - name: POD_NAMESPACE
             valueFrom:
@@ -100,11 +100,10 @@ spec:
   volumeClaimTemplates:
   - metadata:
       name: datadir
-      annotations:
-        volume.alpha.kubernetes.io/storage-class: anything
     spec:
       accessModes:
         - "ReadWriteOnce"
+      storageClassName: do-block-storage
       resources:
         requests:
           storage: 5Gi
